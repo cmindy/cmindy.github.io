@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 조중현
+title: 조민지
 image: /files/covers/surffing.jpg
 permalink: /me/
 sitemap: yes
@@ -10,10 +10,8 @@ tags:
 
 ## CONTACT
 
-* Email - wndzlf@gmail.com
-* Phone - +82 10-2031-3421
-* Github - [github.com/wndzlf](https://github.com/wndzlf/)
-* SNS - a waste of time
+* Email - minjidev@naver.com
+* Github - [github.com/cmindy](https://github.com/cmindy/)
 
 ---
 
