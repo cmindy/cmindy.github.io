@@ -1,4 +1,4 @@
 ---
-name: Algorithm
-title: 'algorithm'
+name: algorithm
+title: 'Algorithm'
 ---
