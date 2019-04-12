@@ -1,11 +1,11 @@
 title: 안녕하세요!!
-email: cmindy@gmail.com
+email: minjidev@naver.com
 description: |
 baseurl: ''
 url: 'http://tech.kakao.com'
 timezone: Asia/Seoul
 
-repository: kakao/kakao.github.io
+repository: cmindy/cmindy.github.io
 
 permalink: /:year/:month/:day/:title/
 
