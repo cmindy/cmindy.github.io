@@ -5,8 +5,8 @@
     <button id="search-toggle" type="button">
         <span class="sr-only">Toggle Search Form</span>
     </button>
-    <!--<a id="logo" href="/">
-        <span class="sr-only">KakaoTech</span>
+    <a id="logo" href="/">
+        <span class="sr-only">MINDY Blog</span>
     </a>
     <div id="search">
         <input id="search-input" type="search" placeholder="Search..." value="" />
@@ -15,8 +15,7 @@
 
     <ul id="menu" class="nav">
         <li class="{% if page.url != '/opensource/' and page.url != '/openapi/' and page.url != '/events/' %} active {% endif %}"><a href="{{ base_path }}/">블로그</a></li>
-        <li class="{% if page.url == '/openapi/' %} active {% endif %}"><a href="{{ base_path }}/openapi/">태그</a></li>
-        <li class="{% if page.url == '/project/' %} active {% endif %}"><a href="{{ base_path }}/project/">프로젝트</a></li>
+        <li class="{% if page.url == '/tags/' %} active {% endif %}"><a href="{{ base_path }}/tags/">태그</a></li>
         <li class="{% if page.url == '/me/' %} active {% endif %}"><a href="{{ base_path }}/me/">소개</a></li>
     </ul>
 </div>
