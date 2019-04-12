@@ -1,4 +1,4 @@
 ---
-name: algorithm
+name: Algorithm
 title: 'algorithm'
 ---

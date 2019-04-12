@@ -1,4 +1,4 @@
 ---
-name: ios
-title: 'ios'
+name: iOS
+title: 'iOS'
 ---

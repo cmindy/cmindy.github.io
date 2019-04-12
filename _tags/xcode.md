@@ -1,4 +1,4 @@
 ---
-name: xcode
+name: Xcode
 title: 'xcode'
 ---

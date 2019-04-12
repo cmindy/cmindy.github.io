@@ -4,7 +4,7 @@ title: 조민지
 image: /files/covers/surffing.jpg
 permalink: /me/
 sitemap: yes
-excerpt: kakao의 오픈소스를 소개합니다.
+excerpt:
 tags:
 ---
 
@@ -17,7 +17,7 @@ tags:
 
 ## SKILL
 
-* Language - Swift, C++ , HTML , JAVA, Go , Erlang, PHP
+* Language - Swift,  JAVA, C
 
 ---
 

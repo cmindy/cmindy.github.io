@@ -1,4 +1,4 @@
 ---
-name: swift
+name: Swift
 title: 'swift'
 ---
