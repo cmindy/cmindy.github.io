@@ -2,4 +2,3 @@
 name: algorithm
 title: 'Algorithm'
 ---
-
