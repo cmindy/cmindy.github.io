@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: Things
-slug: things
-category: review
+title: iOS
+slug: ios
+category: ios
 menu: false
 order: 1
 ---
