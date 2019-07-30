@@ -50,7 +50,7 @@ google_analytics:   #UA-92346434-1
 disqus_shortname:   # isme2n
 
 # This text will appear in the footer of every page. Markdown enabled.
-copyright:           '&copy; cmindy'
+copyright:           '&copy; 2019.by cmindy'
 
 # Format of the permalinks
 permalink:           pretty
