@@ -1,4 +1,0 @@
----
-name: xcode
-title: 'Xcode'
----
