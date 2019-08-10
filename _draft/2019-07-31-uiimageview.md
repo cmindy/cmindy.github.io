@@ -34,6 +34,8 @@ comments: true
 
    이 메서드는 이미지 데이터를 자동으로 캐싱하기 때문에 자주 사용되는 이미지에 권장된다.
 
+   캐싱되어 있는 이미지 오브젝트가 없다면 에셋 카탈로그나 디스크에서 이미지를 생성한다. 
+
 2.  [`imageWithContentsOfFile:`](https://developer.apple.com/documentation/uikit/uiimage/1624123-imagewithcontentsoffile) , [`init(contentsOfFile:)`](https://developer.apple.com/documentation/uikit/uiimage/1624112-init)
 
    초기 데이터가 번들에 있지 않은 경우에 이미지를 생성한다. 
@@ -50,7 +52,23 @@ comments: true
 
 ### Defining a Stretchable Image
 
-You define a stretchable image by adding insets to an existing image using the [`resizableImage(withCapInsets:)`](https://developer.apple.com/documentation/uikit/uiimage/1624102-resizableimage) or [`resizableImage(withCapInsets:resizingMode:)`](https://developer.apple.com/documentation/uikit/uiimage/1624127-resizableimage)method. The insets subdivide the image into two or more parts. Specifying nonzero values for each inset yields an image divided into nine parts, as shown in Figure 1.
+[`resizableImage(withCapInsets:)`](https://developer.apple.com/documentation/uikit/uiimage/1624102-resizableimage) 또는 [`resizableImage(withCapInsets:resizingMode:)`](https://developer.apple.com/documentation/uikit/uiimage/1624127-resizableimage)메서드를 사용해서 stretchable 이미지를 정의할 수 있다. 이 인셋들은이미지를 두 개 이상의 부분으로 세분화한다. 각 인셋 영역에 0이 아닌 값을 넣어서 아래 그림과 같이 이미지를 9개로 나눌 수 있다. 
+
+![img](../assets/2019-07-31-uiimageview.assets/image_insets_2x_da853607-3d28-4bff-a8ca-5b83d5ae9b2b.png)
+
+각각의 인셋은 주어진 치수로 늘어나지 않는 영역을 정의한다. 이미지의 상단 및 하단 인셋은 고정된 높이를 유지하고 왼쪽과 오른쪽의 인셋은 고정된 넓이를 유지한다. 아래 그림에서는 사용 가능한 공간을 채우기 위해 이미지 자체가 늘어나면서 9개로 나눠진 이미지의 각 부분이 늘어나는 것을 보여준다. 이미지의 모서리는 가로와 세로 인셋 사이에 있기 때문에 크기가 변하지 않는다. 
+
+![img](../assets/2019-07-31-uiimageview.assets/image_stretching_2x_1bcaf177-7bf8-4f76-8a07-a13e6a5af3a8.png)
+
+<img src = "../assets/2019-07-31-uiimageview.assets/image-20190810163742375.png" width="100">
+
+```swift
+let insets = UIEdgeInsets(top: 12.0, left: 20.0, bottom: 22.0, right: 12.0)
+let image = UIImage(named: "messageBubble")
+image?.resizableImage(withCapInsets: insets, resizingMode: .stretch)
+```
+
+&nbsp;
 
 
 
@@ -83,3 +101,14 @@ For an image without cap insets, the presentation of the image is determined sol
 For a resizable image with cap insets, those insets affect the final appearance of the image. Specifically, cap insets define which parts of the image may be scaled and in which directions. You can create a resizable image that stretches using the [`resizableImage(withCapInsets:resizingMode:)`](https://developer.apple.com/documentation/uikit/uiimage/1624127-resizableimage) method of `UIImage`. When using an image of this type, you typically set the image view’s content mode to [`UIView.ContentMode.scaleToFill`](https://developer.apple.com/documentation/uikit/uiview/contentmode/scaletofill) so that the image stretches in the appropriate places and fills the image view’s bounds. 
 
 For tips on how to prepare images, see [Debugging Issues with Your Image View](https://developer.apple.com/documentation/uikit/uiimageview#1658399). For more information on creating resizable images with cap insets, see [`UIImage`](https://developer.apple.com/documentation/uikit/uiimage).
+
+
+
+---
+
+### Reference
+
+https://developer.apple.com/documentation/uikit/uiimage
+
+https://riptutorial.com/ios/example/8603/resizable-image-with-caps
+
