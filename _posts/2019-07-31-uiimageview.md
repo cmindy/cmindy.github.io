@@ -56,13 +56,13 @@ comments: true
 
 
 
-![img](../assets/2019-07-31-uiimageview/image_insets_2x_da853607-3d28-4bff-a8ca-5b83d5ae9b2b.png)
+![img](../assets/img/2019-07-31-uiimageview/image_insets_2x_da853607-3d28-4bff-a8ca-5b83d5ae9b2b.png)
 
 각각의 인셋은 주어진 치수로 늘어나지 않는 영역을 정의한다. 이미지의 상단 및 하단 인셋은 고정된 높이를 유지하고 왼쪽과 오른쪽의 인셋은 고정된 넓이를 유지한다. 아래 그림에서는 사용 가능한 공간을 채우기 위해 이미지 자체가 늘어나면서 9개로 나눠진 이미지의 각 부분이 늘어나는 것을 보여준다. 이미지의 모서리는 가로와 세로 인셋 사이에 있기 때문에 크기가 변하지 않는다. 
 
-![img](../assets/2019-07-31-uiimageview/image_stretching_2x_1bcaf177-7bf8-4f76-8a07-a13e6a5af3a8.png)
+![img](../assets/img/2019-07-31-uiimageview/image_stretching_2x_1bcaf177-7bf8-4f76-8a07-a13e6a5af3a8.png)
 
-<img src = "../assets/2019-07-31-uiimageview/image-20190810163742375.png" width="100">
+<img src = "../assets/img/2019-07-31-uiimageview/image-20190810163742375.png" width="100">
 
 ```swift
 let insets = UIEdgeInsets(top: 12.0, left: 20.0, bottom: 22.0, right: 12.0)
