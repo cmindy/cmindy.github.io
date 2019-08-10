@@ -159,5 +159,5 @@ https://developer.apple.com/documentation/uikit/uiimageview
 
 https://riptutorial.com/ios/example/8603/resizable-image-with-caps
 
-![logo](../assets/img/2019-07-31-uiimageview/logo.png)
+![logo](/assets/img/2019-07-31-uiimageview/logo.png)
 
