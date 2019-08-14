@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "iOS. UIImageView"
+title:  "[iOS] UIImageView"
 subtitle:   "UIImageView 클래스"
 categories: ios
-tags: ios document
+tags: ios 
 comments: true
 ---
 
