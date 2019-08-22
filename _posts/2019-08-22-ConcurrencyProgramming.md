@@ -3,7 +3,7 @@ layout: post
 title:  "[iOS] Concurrency Programming"
 subtitle:   "Concurrency Programming"
 categories: ios
-tags: ios swift
+tags: ios boostcourse swift
 comments: true
 ---
 
