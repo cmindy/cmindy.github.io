@@ -3,7 +3,7 @@ layout: post
 title:  "[iOS] Main Run Loop"
 subtitle:   ""
 categories: ios
-tags: ios boostcourse retrospective
+tags: ios
 comments: true
 
 ---
