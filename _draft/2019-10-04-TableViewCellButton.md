@@ -7,9 +7,11 @@ tags: ios swift
 comments: true
 ---
 
+https://fluffy.es/handling-button-tap-inside-uitableviewcell-without-using-tag/
+
 앱에서 사용자가 구독 버튼을 탭했을 때 "[유튜버 이름]을 구독했습니다"를 뜨게하고 싶다. 이 기능은 어떻게 구현해야할까? 각 셀이 탭되는 것을 계속 추적하고 인덱스를 사용해 배열에서 유튜버의 이름을 가져와야 할 것이다. 
 
-구글에서 'button click in uitableviewcell'의 검색 결과를 확인해보자
+구글에서 'button click in uitableviewcell'의 [top result](https://stackoverflow.com/questions/20655060/get-button-click-inside-uitableviewcell) 를 확인해보자
 
 답변은 버튼의 태그 속성을 사용하라고 추천한다.
 
@@ -44,7 +46,7 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
 
 ## tag를 사용하면 안되나요?
 
-태그 프로퍼티는 원래 앱에서 뷰를 고유하게 식별하기 위해 만들어졌다.(뷰를 식별하기 위해IBOutlet을 만드는 것과 비슷하다. 예: self.view.viewWithTag(42)) 데이터를 저장하기 위해 사용되는 것이 아니다. (이 경우에서는, item의 row / index 를 저장한다.) 잘못된 tag의 사용은 multiple section이 있는 경우에 악몽으로 이어진다😱
+[Tag property](https://developer.apple.com/documentation/uikit/uiview/1622493-tag)는 원래 앱에서 뷰를 고유하게 식별하기 위해 만들어졌다.(뷰를 식별하기 위해IBOutlet을 만드는 것과 비슷하다. 예: self.view.viewWithTag(42)) 데이터를 저장하기 위해 사용되는 것이 아니다. (이 경우에서는, item의 row / index 를 저장한다.) 잘못된 tag의 사용은 multiple section이 있는 경우에 악몽으로 이어진다😱
 
 ```swift
 cell.likeButton.tag = indexPath.row + 100
@@ -58,7 +60,7 @@ self.tableView.scrollToRow(at: IndexPath(row: sender.tag, section: sender.tag / 
 
 
 
-스택 오버플로우의 포스트는 섹션이 여러개일 때 테이블 뷰를 다루는 다른 포스트의 링크가 걸려있다. 인덱스를 알아내기 위해 터치된 셀의 좌표를 감지하는 것과 관련되어 있다..대체왜..😱
+스택 오버플로우의 포스트는 섹션이 여러개일 때 테이블 뷰를 다루는  [다른 post](https://stackoverflow.com/questions/31649220/detect-button-click-in-table-view-ios-xcode-for-multiple-row-and-section)의 링크가 걸려있다. 인덱스를 알아내기 위해 터치된 셀의 좌표를 감지하는 것과 관련되어 있다..대체왜..😱
 
 
 
@@ -68,7 +70,7 @@ self.tableView.scrollToRow(at: IndexPath(row: sender.tag, section: sender.tag / 
 
 ## 델리게이트를 사용한 방법
 
-델리게이트와 친숙하지 않다면, 델리게이트가 작동하는 방법을 여기서 읽을 수 있다. 델리게이트 방법을 사용하려면 **index** 프로퍼티 (인덱스를 계속 추적하기 위해) 와 **delegate** 프로퍼티를 셀 클래스에 추가해야한다.
+델리게이트와 친숙하지 않다면, [how delegate works here](https://fluffy.es/eli-5-delegate/)을 여기서 읽을 수 있다. 델리게이트 방법을 사용하려면 **index** 프로퍼티 (인덱스를 계속 추적하기 위해) 와 **delegate** 프로퍼티를 셀 클래스에 추가해야한다.
 
 ```swift
 //YoutuberTableViewCell.swift
@@ -168,3 +170,102 @@ extension ViewController : YoutuberTableViewCellDelegate {
 
 
 모델, (ie. Youtuber(string), 자신의 코드에서 커스텀 모델 클래스를 사용할 수 있음)을 테이블 뷰 셀에 직접 전달한다. 따라서 row 삽입 / 삭제 가 있는 경우에 indexPath의 업데이트를 걱정할 필요가 없다.
+
+
+
+## 클로저를 사용한 방법
+
+아직 클로저를 사용하는 방법과 옵셔널에 대해 잘 모르겠다면 이 글을 읽고 오면 된다.
+
+클로저를 사용하려면, 셀 클래스에 클로저 프로퍼티(subscribeButtonAction)를 추가해야한다.
+
+```swift
+//YoutuberTableViewCell.swift
+
+class YoutuberTableViewCell: UITableViewCell {
+
+  @IBOutlet weak var youtuberLabel: UILabel!
+    
+  @IBOutlet weak var subscribeButton: UIButton!
+    
+  /*
+  No need to keep track the index since we are using closure to store the function that will be executed when user tap on it.
+  */
+  
+  // the closure, () -> () means take no input and return void (nothing)
+  // it is wrapped in another parentheses outside in order to make the closure optional
+  var subscribeButtonAction : (() -> ())?
+    
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+        
+    // Add action to perform when the button is tapped
+    self.subscribeButton.addTarget(self, action: #selector(subscribeButtonTapped(_:)), for: .touchUpInside)
+  }
+
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+
+    // Configure the view for the selected state
+  }
+    
+  @IBAction func subscribeButtonTapped(_ sender: UIButton){
+    // if the closure is defined (not nil)
+    // then execute the code inside the subscribeButtonAction closure
+    subscribeButtonAction?()
+  }
+    
+}
+```
+
+input이 없고 void를 반환하는 클로저 타입 변수 `subscribeButtonAction` 을 사용해 유저가 구독 버튼을 탭했을 때 실행되는 코드를 저장한다. 이는 변수에 함수를 저장하고 변수명 뒤에 () 괄호를 붙여서 함수를 실행하는 것과 같다. 
+
+![closure](https://iosimage.s3.amazonaws.com/2018/33-uibutton-uitableviewcell-tap/closure.png)
+
+그런 다음 사용자가 버튼을 누를 때 실행될 코드를  `cellForRowAt`메소드에 추가한다.
+
+```swift
+extension ViewController : UITableViewDataSource {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! YoutuberTableViewCell
+    cell.youtuberLabel.text = youtubers[indexPath.row]
+    
+    // the code that will be executed when user tap on the button
+    // notice the capture block has [unowned self]
+    // the 'self' is the viewcontroller
+    cell.subscribeButtonAction = { [unowned self] in
+      let youtuber = self.youtubers[indexPath.row]
+      let alert = UIAlertController(title: "Subscribed!", message: "Subscribed to \(youtuber)", preferredStyle: .alert)
+      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(okAction)
+            
+      self.present(alert, animated: true, completion: nil)
+    }
+        
+    return cell
+}
+    
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return youtubers.count
+  }
+}
+```
+
+
+
+`[unowned self]` 가 `cell.subscribeButtonAction` 클로저의 시작 부분에 들어가 있는 것을 볼 수 있다. 이는 뷰 컨트롤러가 테이블 뷰를 소유하고, 테이블 뷰는 셀을 소유하고, 셀은 subscribeButtonAction 클로저를 소유하는 retain 싸이클을 방지해준다. 만약 클로저를weak/unowned reference로 만들지 않고 내부에 self 키워드를 사용하게 되면, 다음과 같은 싸이클이 생길 것이다.
+
+![cycle](https://iosimage.s3.amazonaws.com/2018/33-uibutton-uitableviewcell-tap/cycle.png)
+
+테이블 뷰 셀의 버튼을 탭했을 때 뷰컨트롤러가 여전히 메모리에 있음을 확신할 수 있기 때문에  unowned를 사용해줄수 있다. Hector가  [excellent article about weak/unowned and retain cycle](https://krakendev.io/blog/weak-and-unowned-references-in-swift) 에 대한 글을 썼으니 관심있으면 읽어보길 바란다.
+
+
+
+클로저를 이용한 접근 방식은 더 멋있어보이지만 각각의 셀이 클로저 변수(버튼이 탭됐을 때 실행할 행동)를 저장하기 위해 메모리에 할당되어야 한다는 것을 기억해야한다. 이 접근방법은 함수가 커지면 꽤 많은 메모리를 차지할 수 있다.
+
+
+
+## Notes
+
+이 포스트는 uitableview cell의 버튼에서 delegate / closure 를 사용하는 방법이지만, 이 방법들을  [passing data back to the previous view controller](https://fluffy.es/3-ways-to-pass-data-between-view-controllers/#delegate) , 기타의 경우에도 사용할 수 있다. 
